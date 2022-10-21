@@ -1,5 +1,3 @@
-require "byebug"
-
 class PolyTreeNode
 
     def initialize(value)
