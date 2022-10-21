@@ -7,9 +7,9 @@ class KnightPathFinder
         valid = []
        
         (-2..2).each do |i|
-            if i != 0 && (x + i) >= 0 && (x + i) < 9
+            if i != 0 && (x + i) >= 0 && (x + i) < 8
                 (-2..2).each do |j|
-                    if (y + j) >= 0 && (y + j) < 9 && j != 0 && j != i && i.abs != j.abs
+                    if (y + j) >= 0 && (y + j) < 8 && j != 0 && j != i && i.abs != j.abs
 
                         valid << [x + i, y + j]
                     end
@@ -23,33 +23,37 @@ class KnightPathFinder
     def initialize(start_pos)
         @root_node = PolyTreeNode.new(start_pos)
         @considered_positions = [start_pos]
-        # @build_move_tree
+        @start_pos = start_pos
+        @tree = self.build_move_tree
     end
 
-    def new_move_positions(pos)
-        # if KnightPathFinder.valid_moves(pos) && !@considered_positions.include?(pos)
-        #     @considered_positions << pos
-        # end
-
-        # pos 
+    def new_move_positions(pos) 
         valid = KnightPathFinder.valid_moves(pos)
          valid.each do |position|
             if @considered_positions.include?(position)
                 valid.delete(position)
+            else
+                @considered_positions << position
             end
         end
-        p valid 
+
         valid 
     end
 
 
     def build_move_tree
         self.new_move_positions(pos)
+        nod_root = 00_tree_node.new(@start_pos)
+        new_moves = new_move_positions(@start_pos)
+        new_moves.each do |move|
+            node = 00_tree_node.new(move)
+            
+
     end
 
 
 end
 
-p KnightPathFinder.valid_moves([5, 5])
-p k = KnightPathFinder.new([1,1])
-p k.new_move_positions([1,1])
+p KnightPathFinder.valid_moves([0, 0])
+p k = KnightPathFinder.new([0,0])
+p k.new_move_positions([0,0])
